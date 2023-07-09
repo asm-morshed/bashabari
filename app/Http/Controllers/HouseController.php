@@ -11,6 +11,10 @@ class HouseController extends Controller
         $house = House::all();
         return view('index')->with('houses',$house);
     }
+    public function admin(){
+        $house = House::all();
+        return view('admin')->with('houses',$house);
+    }
     public function filter(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;

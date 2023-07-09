@@ -16,6 +16,7 @@ use App\Http\Controllers\HouseController;
 */
 
 Route::get('/',[HouseController::class,'index'])->middleware('auth');
+Route::get('/admin',[HouseController::class,'admin'])->middleware('auth');
 Route::get('/filter',[HouseController::class,'filter'])->middleware('auth');
 
 Route::get('/register',[UserController::class,'create']);

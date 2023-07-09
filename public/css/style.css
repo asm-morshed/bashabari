@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+  }
+
+  .left-div {
+    flex: 1;
+    padding-left: 15px;
+    border-right: 1px solid #ccc;
+    position: fixed;
+    top: 50;
+    left: 0;
+  }
+
+  .right-div {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin-left: 300px;
+    overflow-y: scroll;
+  }
+  .menubar li{
+    text-decoration: none;
+  }
+  /* .left-div {
+    flex: 0 0 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+
+  .right-div {
+    flex: 1;
+    padding: 20px;
+    margin-left: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+  } */
