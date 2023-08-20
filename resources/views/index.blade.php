@@ -28,12 +28,24 @@
             
             <input type="date" name="end_date" value="{{ old('end_date')}}" class="form-control">
           </div>
-          <div class="col-md-3">
-            <label>Filter by Designation</label>
+          <div class="col-md-2">
+            <label>পদবী</label>
             <select name="status" class="form-select form-control" id="">
-              <option value="">Select Status</option>
-              <option value="ap">Assistant Programmer</option>
-              <option value="ame">Assistant Maintenance Engineer</option>
+              <option value="">পদবী নির্বাচন করুন</option>
+              @foreach ($designations as $designation)
+          
+                <option value="{{ $designation->id }}">{{ $designation->designation }}</option>
+               @endforeach
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label>অফিস</label>
+            <select name="office" class="form-select form-control" id="">
+              <option value="">অফিস নির্বাচন করুন</option>
+              @foreach ($offices as $office)
+          
+                <option value="{{ $office->id }}">{{ $office->office_name }}</option>
+               @endforeach
             </select>
           </div>
           <div class="col-md-6">
@@ -46,6 +58,7 @@
         @csrf
         <button type="submit" class="btn btn-danger">Logout</button>
     </form>
+    <li class="list-group-item"><a href="/admin">Back to Home</a></li>
     </div>
     <hr>
 
@@ -68,10 +81,11 @@
             @foreach ($houses as $house)
             
             <tr>
+                {{-- {{$house}} <br> --}}
                 <th scope="row">{{ $house->id }}</th>
                 <td>{{ $house->name }}</td>
-                <td>{{ $house->designation }}</td>
-                <td>{{ $house->office }}</td>
+                <td>{{ $house->designation->designation }}</td>
+                <td>{{ $house->office_id }}</td>
                 <td>{{ $house->dob }}</td>
                 <td>{{ $house->prl_date }}</td>
                 <td>{{ $house->house_no_name }}</td>

@@ -1,34 +1,59 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Models\Area;
 use App\Models\House;
+use App\Models\Office;
+use App\Models\Designation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HouseController extends Controller
 {
     public function index(){
-        $house = House::all();
-        return view('index')->with('houses',$house);
+        // $employees = Employee::with('designation')->get();
+        $house = House::with('designation')->get();
+        $designations = Designation::all();
+        $offcies = Office::all();
+        return view('index')->with('houses',$house)->with('designations',$designations)->with('offices',$offcies);
     }
     public function admin(){
-        $house = House::all();
-        return view('admin')->with('houses',$house);
+        
+        
+            $areas = Area::all();
+            $designations = Designation::all();
+            $offcies = Office::all();
+            $house = House::all();
+            return view('admin')->with('houses',$house)->with('areas',$areas)->with('designations',$designations)->with('offices',$offcies);
+        
+       
     }
     public function filter(Request $request){
+        // dd(Auth::user()->email);
+        // dd($request->status);
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-        // return $request;
-        // $designation = $request->status;
+        $status = $request->status;
+        $office = $request->office;
+        // dd($request);
+        $query = House::query();
+        if($start_date && $end_date){
+            $query->whereDate('prl_date','>=',$start_date)
+            ->whereDate('prl_date','<=',$end_date);
+        }
+        if($status){
+            $query->where('designation_id', $status);
+        }
+        if($office){
+            $query->where('office_id', $office);
 
-        // return $start_date + ' ' + $end_date;
-        // return $request;
-        $house = House::whereDate('prl_date','>=',$start_date)
-                        ->whereDate('prl_date','<=',$end_date)
-                        // ->where('designation','=',$designation)
-                        ->get(); 
-        $house->start_date = $start_date;
-        return view('index')->with('houses',$house,);
+        }
+        
+        $house = $query->get();
+        $designations = Designation::all();
+        $offcies = Office::all();
+        
+        return view('index')->with('houses',$house,)->with('designations',$designations)->with('offices',$offcies);
 
     }
 }
